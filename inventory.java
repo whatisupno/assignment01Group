@@ -8,6 +8,18 @@ class inventory{
 
         Scanner scanner = new Scanner(System.in);
 
+        itemNames[0] = "Pop Tarts";
+        itemPrices[0] = 5.99;
+        itemStocks[0] = 25;
+
+        itemNames[1] = "Cheerios";
+        itemPrices[1] = 6.25;
+        itemStocks[1] = 50;
+
+        itemNames[2] = "Bananas";
+        itemPrices[2] = 0.59;
+        itemStocks[2] = 30;
+
         while (true) { 
             System.out.println("| Inventory Menu    |");
             System.out.println("| Options:          |");
@@ -24,7 +36,12 @@ class inventory{
                     printInventory(itemNames, itemPrices, itemStocks);
                     break;
                 case 2:
-                    System.out.println("placeholder2");
+                    System.out.println("Enter Item Name: ");
+                    String target = scanner.nextLine();
+
+                    System.out.println("Enter Amount to Add: ");
+                    int amount = scanner.nextInt();
+                    restockItem(itemNames, itemStocks, target, amount);
                     break;
                 case 3:
                     System.exit(0);
@@ -39,13 +56,28 @@ class inventory{
     //Task 1: Invetory Display
     public static void printInventory(String[] names, double[] prices, int[] stocks){
         for (int i = 0; i < names.length; i++) {
-            System.out.println(names[i] + "|| Price: " + prices[i] + "|| Stock:" + stocks[i]);
+            if(names[i] != null){
+            System.out.println(names[i] + " || Price: " + prices[i] + " || Stock:" + stocks[i]);
+            }
         }
     }
 
     //Task 2: Restock & Search
     public static void restockItem(String[] names, int[] stocks, String target, int amount){
+        boolean found = false;
+        for (int i = 0; i < names.length; i++){ 
+            if(names[i] != null && names[i].equalsIgnoreCase(target)){
+                stocks[i] += amount;
+                found = true;
 
+                System.out.println(target + "was restocked. New Amount: " + stocks[i]);
+                break;
+            }
+
+            if(!found){
+                System.out.println("Item not found.");
+            }
+        }
     }
 
     //Tast 3: The User Menu
